@@ -13,6 +13,7 @@ class Node:
         self.left = left
         self.right = right
 ```
+
 The following test should pass:
 
 ```python

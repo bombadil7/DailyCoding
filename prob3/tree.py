@@ -15,6 +15,9 @@ def deserialize(string):
     Each substring if it has children has them enclosed inside perins.
     Examlpe: root(left(left.left|)|right)
     """
+    # check if leaf: e(f|g), then return node, else 
+    # call deserialize on children
+
     return Node(string.split("(", 1)[0])
 
 
