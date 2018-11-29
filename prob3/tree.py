@@ -30,40 +30,48 @@ def deserialize(string):
     Each substring if it has children has them enclosed inside perins.
     Examlpe: root(left(left.left|)|right)
     """
+    # For empty string return None, which makes the logic simpler
+    # at node creation
     if len(string) == 0:
         return None 
 
+    # Simplest case - leaf, no children
     if string.count("(") == 0:
         return Node(string)
 
+    # Extract parent and children
     subs = string.split("(", 1)
     root = subs[0]
-    rest = subs[1].rstrip(")")
+    rest = subs[1][:-1]
     #print(root + " " + rest)
 
+    # Simple case - left child has no children
     left, right = rest.split("|", 1)
     if left.count("(") == 0:
         return Node(root, deserialize(left), deserialize(right))
 
+    # Keep moving right until we find the end of left's children
+    next_index = rest.index("|", len(left)+1)
+    left = rest[:next_index]
+    right = rest[next_index+1:]
+    while left.count('(') != left.count(')'):
+        next_index = rest.index("|", next_index+1)
+        left = rest[:next_index]
+        right = rest[next_index+1:]
 
-
-    # Otherwise deserialize left, then deser right, return Node of the results
-    # first find left and right
-    # have to count perins to determine which pipe to split on from the left
-    # from the right
-
-
-    #return Node(string.split("(", 1)[0])
+    return Node(root, deserialize(left), deserialize(right))
+    
 
 
 def main():
-    #node = Node('root', Node('left', Node('left.left')), Node('right'))
-    node = Node('root', Node('left', Node('left.left', Node('left.left.left'), Node('right'))), Node('right', Node('left'), Node('right')))
-    #assert deserialize(serialize(node)).left.left == 'left.left'
-    #print(serialize(deserialize(serialize(Node('root')))))
-    #print(serialize(node))
+    node = Node('root', Node('left', Node('left.left')), Node('right'))
+    node2 = Node('root', Node('left', Node('left.left', Node('left.left.left'), Node('right'))), Node('right', Node('left'), Node('right')))
+    assert deserialize(serialize(node)).left.left.val == 'left.left'
     #deserialize(r"root(left|right(|right))")
-    print(serialize(deserialize(r"root(left|right(|right))")))
+    #print(serialize(deserialize(r"root(left|right(|right))")))
+    #deserialize(r"root(left(left.left|)|right(|right))")
+    #print(serialize(deserialize(r"root(left(left(left|)|)|right(left|right(|right(|right))))")))
+    print(serialize(deserialize(serialize(node2))))
 
 if __name__ == "__main__":
     main()
