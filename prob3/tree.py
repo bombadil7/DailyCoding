@@ -1,3 +1,7 @@
+""" Node does not create a real binary tree, it doesn't care what values
+    it puts in for left and right, but that is how it is specified 
+    in the problem statement.
+"""
 class Node:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -6,6 +10,9 @@ class Node:
 
 
 def serialize(node):
+    """ serialize keeps calling itself recursively until the 
+        specified root runs out of children.
+    """
     serial = node.val 
 
     if node.left or node.right:
@@ -26,9 +33,14 @@ def serialize(node):
 
 def deserialize(string):
     """ The serialized string starts with root, followed by
-    left and right sub-strings inside perinthesis, separated by a pipe |.
-    Each substring if it has children has them enclosed inside perins.
+    left and right sub-strings inside perintheses, separated by a pipe |.
+    Each substring if it has children has them enclosed inside perins also.
     Examlpe: root(left(left.left|)|right)
+
+    The function works recursively going deeper and deeper into children
+    higherarchy until it finds the leaf (simple string with no children), or
+    an empty child.  Then it returns with a node, which will be used to 
+    assemble the parent.
     """
     # For empty string return None, which makes the logic simpler
     # at node creation
@@ -42,8 +54,8 @@ def deserialize(string):
     # Extract parent and children
     subs = string.split("(", 1)
     root = subs[0]
+    # Remove closing bracket
     rest = subs[1][:-1]
-    #print(root + " " + rest)
 
     # Simple case - left child has no children
     left, right = rest.split("|", 1)
