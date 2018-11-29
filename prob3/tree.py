@@ -34,8 +34,8 @@ def deserialize(string):
 
 
 def main():
-    node = Node('root', Node('left', Node('left.left')), Node('right'))
-    #node = Node('root', Node('left', Node('left.left')))
+    #node = Node('root', Node('left', Node('left.left')), Node('right'))
+    node = Node('root', Node('left', Node('left.left', Node('left.left.left'), Node('right'))), Node('right'))
     #assert deserialize(serialize(node)).left.left == 'left.left'
     #deserialize("left{root}right")
     print(serialize(node))
