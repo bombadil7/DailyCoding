@@ -1,14 +1,14 @@
 from functools import reduce
 # The goal is to produce a new array, in which every
 # item is the product of all the elements of the 
-# original array except current element
+# original array except for the currently selected element. 
+# Example: [1, 2, 3, 4] -> [24, 12, 8, 6]
 
 def convert(array):
-    # Create a list of new lists with required elements removed
-    all_subarrays = list(map((lambda index: [x for i, x in enumerate(array) if i != index]), (index for index in range(len(array)))))
-
-    # Reduce each sub-list to a single number, which is a product of all elements
-    return list(map((lambda lst: reduce((lambda x,y: x*y), lst)), (lst for lst in all_subarrays)))
+    """ Do conversion in two steps: 1) create lists with indexed elements removed and 2) multiply their elementsself.
+        These steps follow in reverse order. """
+    return list(map((lambda lst: reduce((lambda x,y: x*y), lst)), 
+            list(map((lambda index: [x for i, x in enumerate(array) if i != index]), (index for index in range(len(array)))))))
 
 
 def main():
