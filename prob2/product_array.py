@@ -1,22 +1,24 @@
 from functools import reduce
 # The goal is to produce a new array, in which every
-# item is the product of all other elements of the 
-# original array
+# item is the product of all the elements of the 
+# original array except current element
 
-def get_remaining(lst, ind):
-    return [x for i, x in enumerate(lst) if i != ind]
+def remove_current_element(lst, index):
+    """ Given a list and index of one element we remove that element from the list """
+    return [x for i, x in enumerate(lst) if i != index]
 
+def multiply_elements(lst):
+    """ Given a list we multiply all the element of it and return as a single number """
+    return reduce((lambda x,y: x*y), lst)
 
 def main():
-        array = [2, 4, 5, 2, 3]
-        all_subarrays = list(get_remaining(array, i) for i in range(len(array)))
-        new_array = []
-        for sub in all_subarrays:
-                new_array.append(reduce((lambda x,y: x*y), sub))
-        #new_array = list(reduce((lambda x,y: x*y), subarray for subarray in all_subarrays))
-        print(new_array)
-        #new_array = list(map(reduce((lambda x, y: x*y), sub_array for sub_array in ), sub_array))
+    array = [2, 4, 5, 2, 3]
+
+    all_subarrays = list(remove_current_element(array, i) for i in range(len(array)))
+    new_array = list(map(multiply_elements,[x for x in all_subarrays]))
+
+    print(new_array)
 
 
 if __name__ == "__main__":
-        main()
+    main()
