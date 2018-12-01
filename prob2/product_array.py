@@ -3,9 +3,7 @@ from functools import reduce
 # item is the product of all the elements of the 
 # original array except current element
 
-def main():
-    array = [2, 4, 5, 2, 3]
-
+def convert(array):
     # Given a list and index of one element we remove that element from the list
     remove_current_element = lambda lst, index: [x for i, x in enumerate(lst) if i != index]
 
@@ -16,9 +14,12 @@ def main():
     all_subarrays = list(remove_current_element(array, i) for i in range(len(array)))
 
     # Reduce each sub-list to a single number, which is a product of all elements
-    new_array = list(map(multiply_elements,[x for x in all_subarrays]))
+    return list(map(multiply_elements,[x for x in all_subarrays]))
 
-    print(new_array)
+
+def main():
+    array = [2, 4, 5, 2, 3]
+    print(convert(array))
 
 
 if __name__ == "__main__":
