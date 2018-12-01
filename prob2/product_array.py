@@ -4,17 +4,11 @@ from functools import reduce
 # original array except current element
 
 def convert(array):
-    # Given a list and index of one element we remove that element from the list
-    remove_current_element = lambda lst, index: [x for i, x in enumerate(lst) if i != index]
-
-    # Given a list we multiply all elements of it and return as a single number
-    multiply_elements = lambda lst: reduce((lambda x,y: x*y), lst)
-
     # Create a list of new lists with required elements removed
-    all_subarrays = list(remove_current_element(array, i) for i in range(len(array)))
+    all_subarrays = list(map((lambda index: [x for i, x in enumerate(array) if i != index]), (index for index in range(len(array)))))
 
     # Reduce each sub-list to a single number, which is a product of all elements
-    return list(map(multiply_elements,[x for x in all_subarrays]))
+    return list(map((lambda lst: reduce((lambda x,y: x*y), lst)), (lst for lst in all_subarrays)))
 
 
 def main():
