@@ -14,9 +14,6 @@
 #
 #Implement car and cdr.
 
-def f(a, b):
-    return a, b
-
 def cons(a, b):
     def pair(f):
         return f(a, b)
