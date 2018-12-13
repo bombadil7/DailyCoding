@@ -19,13 +19,19 @@ class Btree:
         self.val = val
         self.left = left
         self.right = right
+        
+
+def printBtree(btree, offset):
+    print(' '*offset, btree.val)
+    if btree.left:
+        print()
 
 
 def count(btree):
     if btree.left == None and btree.right == None:
         return 1
 
-    if btree.left.val == btree.right.val == btree.val:
+    if btree.left.val == btree.right.val:
         return 1 + count(btree.left) + count(btree.right)
     
     return count(btree.left) + count(btree.right)
@@ -35,6 +41,7 @@ def main():
         Btree(1), Btree(0, 
             Btree(1, Btree(1), Btree(1)), Btree(0)))
     print(count(btree))
+    printBtree(btree, 20)
 
 if __name__ == "__main__":
     main()

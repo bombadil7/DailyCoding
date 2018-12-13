@@ -6,6 +6,8 @@ import time
 import threading
 
 def schedule(f, n, *args):
+    thread = threading.Thread(target=schedule, args=(func, time_sleep, ". Good Job!", ))
+    thread.start()
     time.sleep(n)
     f(args)
 

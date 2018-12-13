@@ -7,7 +7,6 @@ void print(int *array, int size);
 
 int main(void)
 {
-//    const int size = 5;
     int ar[SIZE] = {1, 2, 3, 4, 5};
     int newAr[SIZE];
 
