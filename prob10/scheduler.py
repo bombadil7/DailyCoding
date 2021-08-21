@@ -8,16 +8,19 @@ import time
 import threading
 
 def schedule(f, n, *args):
-    thread = threading.Thread(target=schedule, args=(func, time_sleep, ". Good Job!", ))
-    thread.start()
+    #thread = threading.Thread(target=f, args=("arg1", n, ". All done!", ))
+    #thread.start()
+    print("Scheduler started")
     time.sleep(n)
-    f(args)
+    #f("arg1", "arg2", "All done!")
+    f()
+    print("Scheduler finished")
 
 def func(args=""):
     print("Function called", end="")
-    for arg in args:
-        print(arg, end=" ")
-    print()
+#    for arg in args:
+#        print(arg, end=" ")
+#    print()
 
 def main():
     time_sleep = 3
